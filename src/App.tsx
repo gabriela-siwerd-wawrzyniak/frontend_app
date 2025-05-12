@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
-import Home from './components/Home';
+import './styles/global.scss';
+import Index from './components/Index';
 import Login from './components/Login';
 import NotFound from './components/NotFound';
-import Welcome from './components/Welcome';
+import Home from './components/Home';
 import { homePath, loginPath, rootPath } from './constants/routes';
 import { useAuthStore } from './store/authStore';
 
@@ -14,11 +14,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path={rootPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Home />} />
+        <Route path={rootPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Index />} />
         <Route path={loginPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Login />} />
         <Route
           path={homePath}
-          element={isAuthenticated ? <Welcome /> : <Navigate to={rootPath} />}
+          element={isAuthenticated ? <Home /> : <Navigate to={rootPath} />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

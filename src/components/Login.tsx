@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { homePath } from '../constants/routes';
+import styles from '../styles/Login.module.scss';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -61,33 +62,33 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-          <h2>Login to your account</h2>
-          <div>
-              <label htmlFor="email">Email address:</label>
-              <input
-                type="email"
-                placeholder="Email address"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
-              {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
-          </div>
-          <div>
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-              />
-              {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-          </div>
-          <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Login'}</button>
-      </form>
-    </div>
+    <>
+        <h1>Login Page</h1>
+        <div className={styles["login-container"]}>
+          <form onSubmit={handleLogin}>
+              <h2>Log in to your account</h2>
+              <div className={styles["input-container"]}>
+                  <input
+                    type="email"
+                    placeholder="Email address"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                  {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
+              </div>
+              <div className={styles["input-container"]}>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                  />
+                  {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+              </div>
+              <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Log in'}</button>
+          </form>
+        </div>
+    </>
   );
 };
 

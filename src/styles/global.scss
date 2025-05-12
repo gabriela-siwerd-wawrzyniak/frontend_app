@@ -1,0 +1,48 @@
+@use 'sass:color';
+
+$primary-color: #4c3b84;
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #cbe2ff;
+}
+
+h1 {
+  text-align: center;
+  color: $primary-color;
+}
+
+h2 {
+  text-align: center;
+  color: black;
+  margin-bottom: 50px;
+}
+
+button {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100px;
+
+  &:hover {
+    background-color: color.adjust($primary-color, $lightness: -10%);
+  }
+
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 20px;
+  }
+}

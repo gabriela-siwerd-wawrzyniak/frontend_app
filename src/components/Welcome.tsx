@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import { rootPath } from "../constants/routes";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Welcome = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     clearAuth();
-    navigate('/');
+    navigate(rootPath);
   };
 
   return (

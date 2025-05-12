@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
+import NotFound from './components/NotFound';
 import Welcome from './components/Welcome';
+import { homePath, loginPath, rootPath } from './constants/routes';
 import { useAuthStore } from './store/authStore';
 
 function App() {
@@ -12,12 +14,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Navigate to="/welcome" /> : <Home />} />
-        <Route path="/login" element={isAuthenticated ? <Navigate to="/welcome" /> : <Login />} />
+        <Route path={rootPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Home />} />
+        <Route path={loginPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Login />} />
         <Route
-          path="/welcome"
-          element={isAuthenticated ? <Welcome /> : <Navigate to="/" />}
+          path={homePath}
+          element={isAuthenticated ? <Welcome /> : <Navigate to={rootPath} />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

@@ -2,15 +2,34 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username && password) {
-      // TODO generate a token
-      localStorage.setItem('token', 'user-token');
-      navigate('/welcome');
+  const handleLogin = async () => {
+    if (email && password) {
+      setLoading(true);
+      try {
+        const response = await fetch('https://my.api.mockaroo.com/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', "x-api-key": "ed97eff0" },
+          body: JSON.stringify({ "email": email, "password": password }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('token', data.token);
+          navigate('/welcome');
+        } else {
+          alert('Invalid credentials');
+        }
+      } catch (error) {
+        console.error('Login failed:', error);
+        alert('An error occurred. Please try again.');
+      } finally {
+        setLoading(false);
+      }
     } else {
       alert('Please enter valid credentials');
     }
@@ -21,9 +40,9 @@ const Login = () => {
       <h1>Login</h1>
       <input
         type="text"
-        placeholder="Username"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
+        placeholder="Email address"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
       />
       <input
         type="password"
@@ -31,7 +50,7 @@ const Login = () => {
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLogin} disabled={loading}>{loading ? 'Loading...' : 'Login'}</button>
     </div>
   );
 };

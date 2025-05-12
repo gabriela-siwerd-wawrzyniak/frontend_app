@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { rootPath } from "../constants/routes";
+import { rootPath } from '../constants/routes';
 import styles from '../styles/Home.module.scss';
 
 const Home = () => {
@@ -16,12 +16,14 @@ const Home = () => {
 
   return (
     <>
-      <div className={styles["header"]}><h1>Home Page</h1><button onClick={handleLogout}>Logout</button></div>
-        <div className={styles["home-container"]}>
-          <p>Welcome, {firstName}</p>
-          <p>Last time you logged in was: {loginDate}</p>
-        </div>
-
+      <div className={styles['header']}>
+        <h1>Home Page</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+      <div className={styles['home-container']}>
+        <p>Welcome, {firstName}</p>
+        <p>Last time you logged in was: {loginDate}</p>
+      </div>
     </>
   );
 };

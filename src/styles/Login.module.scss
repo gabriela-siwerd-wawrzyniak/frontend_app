@@ -20,28 +20,26 @@
       width: 100%;
 
       input {
-      margin: 10px 0 5px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 100%;
+        margin: 10px 0 5px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
 
-      &:focus {
-        border-color: $primary-color;
-        outline: none;
+        &:focus {
+          border-color: $primary-color;
+          outline: none;
+        }
+      }
+
+      p {
+        font-size: 0.9em;
+        margin: 0;
       }
     }
-
-    p {
-      font-size: 0.9em;
-      margin: 0;
+    button {
+      align-self: end;
+      margin-top: 20px;
     }
-
-
-    }
-          button {
-        align-self: end;
-    margin-top: 20px;
-      }
   }
 }

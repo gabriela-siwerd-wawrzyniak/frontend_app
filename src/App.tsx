@@ -9,17 +9,17 @@ import { homePath, loginPath, rootPath } from './constants/routes';
 import { useAuthStore } from './store/authStore';
 
 function App() {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
   return (
     <Router>
       <Routes>
         <Route path={rootPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Index />} />
-        <Route path={loginPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Login />} />
         <Route
-          path={homePath}
-          element={isAuthenticated ? <Home /> : <Navigate to={rootPath} />}
+          path={loginPath}
+          element={isAuthenticated ? <Navigate to={homePath} /> : <Login />}
         />
+        <Route path={homePath} element={isAuthenticated ? <Home /> : <Navigate to={rootPath} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

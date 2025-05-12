@@ -4,9 +4,10 @@ import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
+import { useAuthStore } from './store/authStore';
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem('token');
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
     <Router>

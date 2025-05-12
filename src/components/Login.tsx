@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/authStore';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   const handleLogin = async () => {
     if (email && password) {
@@ -20,6 +22,7 @@ const Login = () => {
         if (response.ok) {
           const data = await response.json();
           localStorage.setItem('token', data.token);
+          setAuth(true, data.first_name, data.login_date);
           navigate('/welcome');
         } else {
           alert('Invalid credentials');

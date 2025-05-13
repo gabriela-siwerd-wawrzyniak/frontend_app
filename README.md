@@ -12,36 +12,13 @@ Includes zustand for state management, a mocked API integration and Jest tests.
 
 ### Install dependencies
 
-```bash
-npm install
-```
-
-### Run the development server
-
-```bash
-npm start
-```
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### Run tests
-
-```bash
-npm run test
-```
+### `npm install`
 
 ### Environment Variables
 
 Create a .env file in the project root using the .env.example file.
 
-
-## Available Scripts
-
-In the project directory, you can run:
+### Run the development server
 
 ### `npm start`
 
@@ -51,10 +28,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+### Run tests
+
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Run code formatting
+
+```bash
+npm run lint
+npm run format
+```
+
+### Build app
 
 ### `npm run build`
 

@@ -1,4 +1,4 @@
-@import '../styles/global.scss';
+@import './global';
 
 .home-container {
   text-align: left;
@@ -7,12 +7,12 @@
   margin: 50px auto;
   padding: 20px;
   background-color: $content-background-color;
-  border-radius: 10px;
+  border-radius: $border-radius-md;
   box-shadow: $content-shadow;
 
   .home-text {
-    font-size: 1.5em;
-    color: #3f3f3f;
+    font-size: $font-size-lg;
+    color: $text-color;
     margin-top: 10px;
   }
 }

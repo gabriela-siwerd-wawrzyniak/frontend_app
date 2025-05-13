@@ -1,4 +1,4 @@
-@import '../styles/global';
+@import './global';
 
 .login-container {
   max-width: 700px;
@@ -6,7 +6,7 @@
   margin: 50px auto;
   padding: 20px;
   background-color: $content-background-color;
-  border-radius: 10px;
+  border-radius: $border-radius-md;
   box-shadow: $content-shadow;
 
   form {
@@ -25,7 +25,7 @@
         margin: 10px 0 5px;
         padding: 10px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: $border-radius-sm;
 
         &:focus {
           border-color: $primary-color;
@@ -34,7 +34,7 @@
       }
 
       .error {
-        font-size: 0.9rem;
+        font-size: $font-size-sm;
         color: $error-color;
         margin: 0;
       }

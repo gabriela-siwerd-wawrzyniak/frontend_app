@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useAuthStore } from '../store/authStore';
 import { rootPath } from '../constants/routes';
 import styles from '../styles/Home.module.scss';

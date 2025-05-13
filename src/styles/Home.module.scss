@@ -1,26 +1,29 @@
 @import './global';
 
 .home-container {
-  text-align: left;
   max-width: 700px;
-  height: 700px;
-  padding: 20px;
+  min-height: 700px;
+  padding: $spacing-lg;
+  margin: $spacing-xl auto;
   background-color: $content-background-color;
   border-radius: $border-radius-md;
   box-shadow: $shadow-sm;
+  text-align: left;
 
   @media (max-width: $breakpoint-md) {
     max-width: 500px;
+    padding: $spacing-md;
   }
 
   @media (max-width: $breakpoint-sm) {
-    max-width: 300px;
+    max-width: 350px;
+    padding: $spacing-sm;
   }
 
   .home-text {
     font-size: $font-size-lg;
     color: $text-color;
-    margin-top: 10px;
+    margin-top: $spacing-sm;
 
     @media (max-width: $breakpoint-sm) {
       font-size: $font-size-md;

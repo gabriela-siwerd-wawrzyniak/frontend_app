@@ -1,32 +1,43 @@
 @use 'sass:color';
 @import './variables';
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: $font-family-base;
   margin: 0;
   padding: 0;
   background-color: $background-color;
+  color: $text-color;
 }
 
 h1 {
   text-align: center;
   color: $primary-color;
+  font-size: $font-size-xl;
+  margin-bottom: $spacing-md;
 }
 
 h2 {
   text-align: center;
-  color: black;
-  margin-bottom: 50px;
+  color: $text-color;
+  font-size: $font-size-lg;
+  margin-bottom: $spacing-lg;
 }
 
 button {
   background-color: $primary-color;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: $spacing-sm $spacing-md;
   cursor: pointer;
   border-radius: $border-radius-sm;
   width: 100px;
+  font-size: $font-size-sm;
 
   &:hover {
     background-color: color.adjust($primary-color, $lightness: -10%);
@@ -34,10 +45,10 @@ button {
 }
 
 section {
-  margin: 50px auto;
+  margin: $spacing-xl auto;
 
   @media (max-width: $breakpoint-sm) {
-    margin: 20px auto;
+    margin: $spacing-md auto;
   }
 }
 
@@ -53,11 +64,11 @@ section {
 
   button {
     position: absolute;
-    right: 20px;
+    right: $spacing-md;
 
     @media (max-width: $breakpoint-sm) {
       margin: auto;
-      position: initial;
+      position: static;
       font-size: $font-size-md;
     }
   }

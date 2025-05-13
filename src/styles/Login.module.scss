@@ -2,18 +2,21 @@
 
 .login-container {
   max-width: 700px;
-  height: 350px;
-  padding: 20px;
+  min-height: 350px;
+  padding: $spacing-lg;
   background-color: $content-background-color;
   border-radius: $border-radius-md;
   box-shadow: $shadow-sm;
+  margin: $spacing-xl auto;
 
   @media (max-width: $breakpoint-md) {
     max-width: 500px;
+    padding: $spacing-md;
   }
 
   @media (max-width: $breakpoint-sm) {
-    max-width: 300px;
+    max-width: 350px;
+    padding: $spacing-sm;
   }
 
   form {
@@ -36,10 +39,11 @@
 
       input {
         width: 100%;
-        margin: 10px 0 5px;
-        padding: 10px;
-        border: 1px solid #ccc;
+        margin: $spacing-sm 0 $spacing-xs;
+        padding: $spacing-sm;
+        border: 1px solid $border-color;
         border-radius: $border-radius-sm;
+        font-size: $font-size-md;
 
         @media (max-width: $breakpoint-sm) {
           font-size: $font-size-md;
@@ -60,10 +64,11 @@
 
     button {
       align-self: flex-end;
-      margin-top: 20px;
+      margin-top: $spacing-md;
+      font-size: $font-size-sm;
 
       @media (max-width: $breakpoint-sm) {
-        max-width: 100%;
+        width: 100%;
         font-size: $font-size-md;
       }
     }
@@ -71,7 +76,7 @@
     .spinner {
       width: 1rem;
       height: 1rem;
-      border: 2px solid #fff;
+      border: 2px solid white;
       border-top: 2px solid transparent;
       border-radius: 50%;
       animation: spin 0.6s linear infinite;

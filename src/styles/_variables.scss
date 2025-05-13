@@ -4,12 +4,22 @@ $error-color: #e53935;
 $text-color: #333;
 $background-color: #cbe2ff;
 $content-background-color: white;
+$border-color: #ccc;
 
 // Fonts
+$font-family-base: 'Arial', sans-serif;
 $font-size-sm: 0.9em;
 $font-size-md: 1.2em;
 $font-size-lg: 1.5em;
+$font-size-xl: 2em;
 $text-color: #3f3f3f;
+
+// Spacing
+$spacing-xs: 5px;
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-lg: 25px;
+$spacing-xl: 40px;
 
 // Borders
 $border-radius-sm: 5px;

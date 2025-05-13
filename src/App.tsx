@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/global.scss';
 import Index from './components/Index';
 import Login from './components/Login';
 import NotFound from './components/NotFound';
 import Home from './components/Home';
+import RedirectRoute from './components/RedirectRoute';
 import { homePath, loginPath, rootPath } from './constants/routes';
 import { useAuthStore } from './store/authStore';
 
@@ -14,12 +15,30 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path={rootPath} element={isAuthenticated ? <Navigate to={homePath} /> : <Index />} />
+        <Route
+          path={rootPath}
+          element={
+            <RedirectRoute shouldRedirect={isAuthenticated} redirectPath={homePath}>
+              <Index />
+            </RedirectRoute>
+          }
+        />
         <Route
           path={loginPath}
-          element={isAuthenticated ? <Navigate to={homePath} /> : <Login />}
+          element={
+            <RedirectRoute shouldRedirect={isAuthenticated} redirectPath={homePath}>
+              <Login />
+            </RedirectRoute>
+          }
         />
-        <Route path={homePath} element={isAuthenticated ? <Home /> : <Navigate to={rootPath} />} />
+        <Route
+          path={homePath}
+          element={
+            <RedirectRoute shouldRedirect={!isAuthenticated} redirectPath={rootPath}>
+              <Home />
+            </RedirectRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

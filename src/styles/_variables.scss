@@ -16,6 +16,10 @@ $border-radius-sm: 5px;
 $border-radius-md: 10px;
 
 // Shadows
-$button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-$button-shadow-lg: 0 10px 10px rgba(0, 0, 0, 0.3);
-$content-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 10px rgba(0, 0, 0, 0.3);
+
+// Breakpoints
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;

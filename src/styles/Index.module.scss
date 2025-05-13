@@ -12,6 +12,11 @@
     font-size: $font-size-md;
     border-radius: $border-radius-md;
     width: 500px;
-    box-shadow: $button-shadow-lg;
+    box-shadow: $shadow-lg;
+
+    @media (max-width: $breakpoint-sm) {
+      width: 80%;
+      font-size: $font-size-md;
+    }
   }
 }

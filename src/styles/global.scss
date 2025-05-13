@@ -33,14 +33,32 @@ button {
   }
 }
 
+section {
+  margin: 50px auto;
+
+  @media (max-width: $breakpoint-sm) {
+    margin: 20px auto;
+  }
+}
+
 .header {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 
+  @media (max-width: $breakpoint-sm) {
+    display: grid;
+  }
+
   button {
     position: absolute;
     right: 20px;
+
+    @media (max-width: $breakpoint-sm) {
+      margin: auto;
+      position: initial;
+      font-size: $font-size-md;
+    }
   }
 }

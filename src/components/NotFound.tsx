@@ -7,13 +7,15 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <div className={styles['header']}>
+    <main>
+      <header className={styles['header']}>
         <h1>Page Not Found</h1>
         <button onClick={() => navigate(homePath)}>Home</button>
-      </div>
-      <h2>The page you are looking for does not exist.</h2>
-    </div>
+      </header>
+      <section>
+        <h2>The page you are looking for does not exist.</h2>
+      </section>
+    </main>
   );
 };
 

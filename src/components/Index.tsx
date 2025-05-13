@@ -7,14 +7,14 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <div className={styles['header']}>
+    <main>
+      <header className={styles['header']}>
         <h1>Login App</h1>
-      </div>
-      <div className={styles['content']}>
+      </header>
+      <section className={styles['content']}>
         <button onClick={() => navigate(loginPath)}>Go to login page</button>
-      </div>
-    </>
+      </section>
+    </main>
   );
 };
 

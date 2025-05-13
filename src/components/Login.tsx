@@ -3,94 +3,111 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { homePath } from '../constants/routes';
 import styles from '../styles/Login.module.scss';
+import { API_KEY, API_URL } from '../constants/api';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const setAuth = useAuthStore(state => state.setAuth);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validate()) {
-      setLoading(true);
-      try {
-        const response = await fetch('https://my.api.mockaroo.com/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-api-key': 'ed97eff0' },
-          body: JSON.stringify({ email: email, password: password }),
-        });
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [errors, setErrors] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
 
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem('token', data.token);
-          setAuth(true, data.first_name, data.login_date);
-          navigate(homePath);
-        } else {
-          alert('Invalid credentials');
-        }
-      } catch (error) {
-        console.error('Login failed:', error);
-        alert('An error occurred. Please try again.');
-      } finally {
-        setLoading(false);
-      }
-    }
+  const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm(prev => ({ ...prev, [field]: e.target.value }));
+    setErrors(prev => ({ ...prev, [field]: '' }));
   };
 
   const validate = () => {
-    let valid = true;
+    const newErrors = {
+      email: form.email.trim() ? '' : 'Field required',
+      password: form.password.trim() ? '' : 'Field required',
+    };
 
-    if (!email.trim()) {
-      setEmailError('Field required');
-      valid = false;
-    } else {
-      setEmailError('');
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(error => error !== '');
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      if (!response.ok) {
+        alert('Invalid credentials');
+        return;
+      }
+
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      setAuth(true, data.first_name, data.login_date);
+      navigate(homePath);
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
-
-    if (!password.trim()) {
-      setPasswordError('Field required');
-      valid = false;
-    } else {
-      setPasswordError('');
-    }
-
-    return valid;
   };
 
   return (
-    <>
-      <h1>Login Page</h1>
-      <div className={styles['login-container']}>
-        <form onSubmit={handleLogin}>
+    <main>
+      <header className={styles['header']}>
+        <h1>Login Page</h1>
+      </header>
+      <section className={styles['login-container']}>
+        <form onSubmit={handleLogin} noValidate>
           <h2>Log in to your account</h2>
           <div className={styles['input-container']}>
             <input
+              id="email"
               type="email"
               placeholder="Email address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              value={form.email}
+              onChange={handleChange('email')}
             />
-            {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
+            {errors.email && (
+              <p id="email-error" className={styles['error']}>
+                {errors.email}
+              </p>
+            )}
           </div>
+
           <div className={styles['input-container']}>
             <input
+              id="password"
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              value={form.password}
+              onChange={handleChange('password')}
             />
-            {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+            {errors.password && (
+              <p id="password-error" className={styles['error']}>
+                {errors.password}
+              </p>
+            )}
           </div>
+
           <button type="submit" disabled={loading}>
-            {loading ? 'Loading...' : 'Log in'}
+            {loading ? <span className={styles['spinner']} /> : 'Log in'}
           </button>
         </form>
-      </div>
-    </>
+      </section>
+    </main>
   );
 };
 

@@ -11,18 +11,17 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    set => ({
       isAuthenticated: false,
       firstName: null,
       loginDate: null,
       setAuth: (isAuthenticated, firstName, loginDate) =>
         set({ isAuthenticated, firstName, loginDate }),
-      clearAuth: () =>
-        set({ isAuthenticated: false, firstName: null, loginDate: null }),
+      clearAuth: () => set({ isAuthenticated: false, firstName: null, loginDate: null }),
     }),
     {
       name: 'auth-storage',
-      partialize: (state) => ({
+      partialize: state => ({
         isAuthenticated: state.isAuthenticated,
         firstName: state.firstName,
         loginDate: state.loginDate,

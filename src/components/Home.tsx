@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.scss';
 
 const Home = () => {
   const navigate = useNavigate();
+
   const { firstName, loginDate, clearAuth } = useAuthStore();
 
   const handleLogout = () => {
@@ -14,17 +15,24 @@ const Home = () => {
     navigate(rootPath);
   };
 
+  const formattedDate = loginDate
+    ? new Intl.DateTimeFormat('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      }).format(new Date(loginDate))
+    : 'unknown';
+
   return (
-    <>
-      <div className={styles['header']}>
+    <main>
+      <header className={styles['header']}>
         <h1>Home Page</h1>
         <button onClick={handleLogout}>Logout</button>
-      </div>
-      <div className={styles['home-container']}>
-        <p>Welcome, {firstName}</p>
-        <p>Last time you logged in was: {loginDate}</p>
-      </div>
-    </>
+      </header>
+      <section className={styles['home-container']}>
+        <div className={styles['home-text']}>Welcome, {firstName ?? 'Guest'}</div>
+        <div className={styles['home-text']}>Last time you logged in was: {formattedDate}</div>
+      </section>
+    </main>
   );
 };
 

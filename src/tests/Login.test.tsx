@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from 'components/Login';
+import LoginPage from 'pages/LoginPage';
 
 jest.mock('react-router', () => ({
   useNavigate: jest.fn(),
@@ -41,7 +41,7 @@ describe('Login component', () => {
   });
 
   it('renders the form', () => {
-    render(<Login />);
+    render(<LoginPage />);
     expect(screen.getByText(/login page/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/email address/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/password/i)).toBeInTheDocument();
@@ -49,14 +49,14 @@ describe('Login component', () => {
   });
 
   it('shows validation errors when both fields are empty', async () => {
-    render(<Login />);
+    render(<LoginPage />);
     fireEvent.click(screen.getByRole('button', { name: /log in/i }));
 
     expect(await screen.findAllByText(/field required/i)).toHaveLength(2);
   });
 
   it('shows validation errors when one field is empty', async () => {
-    render(<Login />);
+    render(<LoginPage />);
     await userEvent.type(screen.getByPlaceholderText(/email address/i), 'jane@example.com');
     fireEvent.click(screen.getByRole('button', { name: /log in/i }));
 
@@ -75,7 +75,7 @@ describe('Login component', () => {
       json: async () => mockResponse,
     }) as jest.Mock;
 
-    render(<Login />);
+    render(<LoginPage />);
 
     await userEvent.type(screen.getByPlaceholderText(/email address/i), 'john@example.com');
     await userEvent.type(screen.getByPlaceholderText(/password/i), 'password123');
@@ -95,7 +95,7 @@ describe('Login component', () => {
     jest.spyOn(window, 'alert').mockImplementation(() => {});
     global.fetch = jest.fn().mockResolvedValue({ ok: false }) as jest.Mock;
 
-    render(<Login />);
+    render(<LoginPage />);
 
     await userEvent.type(screen.getByPlaceholderText(/email address/i), 'wrong@example.com');
     await userEvent.type(screen.getByPlaceholderText(/password/i), 'wrongpass');

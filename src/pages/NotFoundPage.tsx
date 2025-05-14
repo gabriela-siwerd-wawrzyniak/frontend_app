@@ -2,9 +2,9 @@ import { homePath } from 'constants/routes';
 
 import { useNavigate } from 'react-router';
 
-import styles from 'styles/Index.module.scss';
+import styles from 'pages/IndexPage.module.scss';
 
-const NotFound = () => {
+const NotFoundPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -20,4 +20,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default NotFoundPage;

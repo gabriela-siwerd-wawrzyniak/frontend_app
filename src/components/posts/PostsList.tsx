@@ -1,41 +1,18 @@
 import { API_KEY, BLOG_POSTS_URL } from 'constants/api';
-import { rootPath } from 'constants/routes';
 
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { useAuthStore } from 'store/authStore';
 
-import { formatDate } from 'utils/formatting';
+import Post, { BlogPost, BlogPostStatus } from "components/posts/Post";
 
-import styles from 'styles/Home.module.scss';
+import styles from 'components/posts/Posts.module.scss';
 
-enum BlogPostStatus {
-  Posted = 'posted',
-  Scheduled = 'scheduled',
-  InProgress = 'in_progress',
-}
-
-type BlogPost = {
-  id: number;
-  title: string;
-  content: string;
-  created: string;
-  published: string;
-  status: BlogPostStatus;
-};
-
-const Home = () => {
-  const navigate = useNavigate();
-  const { id, firstName, loginDate, clearAuth } = useAuthStore();
+const PostsList = () => {
+  const { id } = useAuthStore();
 
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  const handleLogout = () => {
-    clearAuth();
-    navigate(rootPath);
-  };
 
   const fetchUserBlogPosts = async () => {
     try {
@@ -73,16 +50,7 @@ const Home = () => {
   }, []);
 
   return (
-    <main>
-      <header className={styles['header']}>
-        <h1>Home Page</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </header>
-      <section className={styles['home-container']}>
-        <div className={styles['home-text']}>Welcome, {firstName ?? 'Guest'}</div>
-        <div className={styles['home-text']}>
-          Last time you logged in was: {formatDate(loginDate)}
-        </div>
+    <>
         {loading ? (
           <span className={styles['spinner']} />
         ) : error ? (
@@ -92,20 +60,12 @@ const Home = () => {
             {blogPosts
               .filter(post => post.status === BlogPostStatus.Posted)
               .map(post => (
-                <div key={post.id} className={styles['post-container']}>
-                  <h3>{post.title}</h3>
-                  <p>{post.content}</p>
-                  <p className={styles['post-meta']}>
-                    Created: {formatDate(post.created)}
-                    <br />
-                  </p>
-                </div>
+                <Post key={post.id} post={post} />
               ))}
           </div>
         )}
-      </section>
-    </main>
+    </>
   );
 };
 
-export default Home;
+export default PostsList;

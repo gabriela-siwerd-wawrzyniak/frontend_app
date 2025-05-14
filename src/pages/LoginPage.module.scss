@@ -1,0 +1,21 @@
+@import 'src/styles/global';
+
+.login-container {
+  max-width: 700px;
+  min-height: 350px;
+  padding: $spacing-lg;
+  background-color: $content-background-color;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  margin: $spacing-xl auto;
+
+  @media (max-width: $breakpoint-md) {
+    max-width: 500px;
+    padding: $spacing-md;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    max-width: 350px;
+    padding: $spacing-sm;
+  }
+}

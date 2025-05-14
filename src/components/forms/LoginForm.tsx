@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router';
 import { useAuthStore } from 'store/authStore';
 import { validateEmail } from 'utils/validation';
 
-import styles from 'styles/Login.module.scss';
+import Input from "components/forms/Input";
+
+import styles from 'components/forms/LoginForm.module.scss';
 
 type LoginForm = {
   email: string;
@@ -21,7 +23,7 @@ type LoginResponse = {
   login_date: string;
 };
 
-const Login = () => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const setAuth = useAuthStore(state => state.setAuth);
 
@@ -92,58 +94,31 @@ const Login = () => {
   };
 
   return (
-    <main>
-      <header className={styles['header']}>
-        <h1>Login Page</h1>
-      </header>
-      <section className={styles['login-container']}>
-        <form onSubmit={handleLogin} noValidate>
-          <h2>Log in to your account</h2>
-          <div className={styles['input-container']}>
-            <label htmlFor="email" className={styles['hidden']}>Email address</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="Email address"
-              value={form.email}
-              onChange={handleChange('email')}
-              aria-invalid={!!errors.email}
-              aria-describedby="email-error"
-              disabled={loading}
-            />
-            {errors.email && (
-              <p id="email-error" role="alert" className={styles['error']}>
-                {errors.email}
-              </p>
-            )}
-          </div>
-
-          <div className={styles['input-container']}>
-            <label htmlFor="password" className={styles['hidden']}>Password</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange('password')}
-              aria-invalid={!!errors.password}
-              aria-describedby="password-error"
-              disabled={loading}
-            />
-            {errors.password && (
-              <p id="password-error" role="alert" className={styles['error']}>
-                {errors.password}
-              </p>
-            )}
-          </div>
-
-          <button disabled={loading}>
-            {loading ? <span className={styles['spinner']} /> : 'Log in'}
-          </button>
-        </form>
-      </section>
-    </main>
+    <form onSubmit={handleLogin} noValidate>
+      <h2>Log in to your account</h2>
+      <Input
+        id="email"
+        type="email"
+        placeholder="Email address"
+        value={form.email}
+        onChange={handleChange('email')}
+        error={errors.email}
+        disabled={loading}
+      />
+      <Input
+        id="password"
+        type="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={handleChange('password')}
+        error={errors.password}
+        disabled={loading}
+      />
+      <button disabled={loading}>
+        {loading ? <span className={styles['spinner']} /> : 'Log in'}
+      </button>
+    </form>
   );
 };
 
-export default Login;
+export default LoginForm;

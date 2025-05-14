@@ -1,4 +1,4 @@
-import { API_KEY, API_URL } from 'constants/api';
+import { API_KEY, LOGIN_URL } from 'constants/api';
 import { homePath } from 'constants/routes';
 
 import { useState } from 'react';
@@ -16,7 +16,7 @@ type LoginForm = {
 type LoginFormErrors = Record<keyof LoginForm, string>;
 
 type LoginResponse = {
-  token: string;
+  id: number;
   first_name: string;
   login_date: string;
 };
@@ -63,7 +63,7 @@ const Login = () => {
 
     setLoading(true);
     try {
-      const response: Response = await fetch(API_URL, {
+      const response: Response = await fetch(LOGIN_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,8 +81,7 @@ const Login = () => {
       }
 
       const data: LoginResponse = await response.json();
-      localStorage.setItem('token', data.token);
-      setAuth(true, data.first_name, data.login_date);
+      setAuth(data.id, true, data.first_name, data.login_date);
       navigate(homePath);
     } catch (error: unknown) {
       console.error('Login failed:', error);

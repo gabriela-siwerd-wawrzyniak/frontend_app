@@ -21,12 +21,38 @@
   }
 
   .home-text {
-    font-size: $font-size-lg;
+    font-size: $font-size-md;
     color: $text-color;
     margin-top: $spacing-sm;
+  }
 
-    @media (max-width: $breakpoint-sm) {
-      font-size: $font-size-md;
+  .spinner {
+    width: 2rem;
+    height: 2rem;
+    border-color: $primary-color;
+    display: block;
+    margin: $spacing-lg auto;
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    margin-top: $spacing-xl;
+  }
+
+  .post-container {
+    background: $content-background-color;
+    padding: $spacing-sm;
+    box-shadow: $shadow-sm;
+
+    h3 {
+      margin-bottom: $spacing-xs;
+    }
+
+    .post-meta {
+      font-size: $font-size-sm;
+      margin-top: $spacing-md;
     }
   }
 }

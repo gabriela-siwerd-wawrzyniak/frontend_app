@@ -11,8 +11,9 @@ jest.mock('../store/authStore', () => ({
 }));
 
 jest.mock('../constants/api', () => ({
-  API_URL: 'https://fake.api/login',
+  API_URL: 'https://fake.api',
   API_KEY: 'fake-key',
+  LOGIN_URL: `https://fake.api/login`,
 }));
 
 describe('Login component', () => {
@@ -64,7 +65,7 @@ describe('Login component', () => {
 
   it('calls API and redirects on successful login', async () => {
     const mockResponse = {
-      token: 'mock-token',
+      id: 1,
       first_name: 'John',
       login_date: '2025-05-01T00:00:00Z',
     };
@@ -83,7 +84,7 @@ describe('Login component', () => {
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith('https://fake.api/login', expect.any(Object));
-      expect(mockSetAuth).toHaveBeenCalledWith(true, 'John', '2025-05-01T00:00:00Z');
+      expect(mockSetAuth).toHaveBeenCalledWith(1, true, 'John', '2025-05-01T00:00:00Z');
       expect(mockNavigate).toHaveBeenCalledWith('/welcome');
     });
 

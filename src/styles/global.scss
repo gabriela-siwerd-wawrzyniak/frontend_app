@@ -43,7 +43,7 @@ button {
     background-color: color.adjust($primary-color, $lightness: -10%);
   }
 
-  &:focus-visible {
+  &:focus {
     outline: 1px solid black;
     background-color: color.adjust($primary-color, $lightness: -10%);
     box-shadow: $shadow-sm;
@@ -80,7 +80,7 @@ section {
   }
 }
 
-.visually-hidden {
+.hidden {
   position: absolute !important;
   width: 1px; height: 1px;
   padding: 0; margin: -1px;

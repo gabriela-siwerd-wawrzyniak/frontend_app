@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { API_KEY, API_URL } from 'constants/api';
+import { homePath } from 'constants/routes';
+
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useAuthStore } from '../store/authStore';
-import { homePath } from '../constants/routes';
-import styles from '../styles/Login.module.scss';
-import { API_KEY, API_URL } from '../constants/api';
+import { useAuthStore } from 'store/authStore';
+
+import styles from 'styles/Login.module.scss';
 
 const Login = () => {
   const navigate = useNavigate();

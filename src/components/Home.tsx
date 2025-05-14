@@ -1,8 +1,9 @@
-import React from 'react';
+import { rootPath } from 'constants/routes';
+
 import { useNavigate } from 'react-router';
-import { useAuthStore } from '../store/authStore';
-import { rootPath } from '../constants/routes';
-import styles from '../styles/Home.module.scss';
+import { useAuthStore } from 'store/authStore';
+
+import styles from 'styles/Home.module.scss';
 
 const Home = () => {
   const navigate = useNavigate();

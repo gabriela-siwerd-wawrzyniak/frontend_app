@@ -1,13 +1,14 @@
-import React from 'react';
+import { homePath, loginPath, rootPath } from 'constants/routes';
+
+import Home from 'components/Home';
+import Index from 'components/Index';
+import Login from 'components/Login';
+import NotFound from 'components/NotFound';
+import RedirectRoute from 'components/RedirectRoute';
 import { BrowserRouter as Router, Routes, Route } from 'react-router';
-import './styles/global.scss';
-import Index from './components/Index';
-import Login from './components/Login';
-import NotFound from './components/NotFound';
-import Home from './components/Home';
-import RedirectRoute from './components/RedirectRoute';
-import { homePath, loginPath, rootPath } from './constants/routes';
-import { useAuthStore } from './store/authStore';
+import { useAuthStore } from 'store/authStore';
+
+import 'styles/global.scss';
 
 function App() {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);

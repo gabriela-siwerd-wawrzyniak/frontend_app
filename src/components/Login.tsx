@@ -100,32 +100,38 @@ const Login = () => {
         <form onSubmit={handleLogin} noValidate>
           <h2>Log in to your account</h2>
           <div className={styles['input-container']}>
+            <label htmlFor="email" className={styles['hidden']}>Email address</label>
             <input
               id="email"
               type="email"
               placeholder="Email address"
               value={form.email}
               onChange={handleChange('email')}
+              aria-invalid={!!errors.email}
+              aria-describedby="email-error"
               disabled={loading}
             />
             {errors.email && (
-              <p id="email-error" className={styles['error']}>
+              <p id="email-error" role="alert" className={styles['error']}>
                 {errors.email}
               </p>
             )}
           </div>
 
           <div className={styles['input-container']}>
+            <label htmlFor="password" className={styles['hidden']}>Password</label>
             <input
               id="password"
               type="password"
               placeholder="Password"
               value={form.password}
               onChange={handleChange('password')}
+              aria-invalid={!!errors.password}
+              aria-describedby="password-error"
               disabled={loading}
             />
             {errors.password && (
-              <p id="password-error" className={styles['error']}>
+              <p id="password-error" role="alert" className={styles['error']}>
                 {errors.password}
               </p>
             )}

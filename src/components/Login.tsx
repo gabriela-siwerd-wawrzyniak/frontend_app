@@ -4,40 +4,66 @@ import { homePath } from 'constants/routes';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuthStore } from 'store/authStore';
+import { validateEmail } from 'utils/validation';
 
 import styles from 'styles/Login.module.scss';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+type LoginFormErrors = Record<keyof LoginForm, string>;
+
+type LoginResponse = {
+  token: string;
+  first_name: string;
+  login_date: string;
+};
 
 const Login = () => {
   const navigate = useNavigate();
   const setAuth = useAuthStore(state => state.setAuth);
 
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({ email: '', password: '' });
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState<LoginForm>({ email: '', password: '' });
+  const [errors, setErrors] = useState<LoginFormErrors>({ email: '', password: '' });
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm(prev => ({ ...prev, [field]: e.target.value }));
     setErrors(prev => ({ ...prev, [field]: '' }));
   };
 
-  const validate = () => {
-    const newErrors = {
-      email: form.email.trim() ? '' : 'Field required',
-      password: form.password.trim() ? '' : 'Field required',
+  const validate = (): boolean => {
+    const newErrors: LoginFormErrors = {
+      email: '',
+      password: '',
     };
 
+    if (!form.email.trim()) {
+      newErrors.email = 'Field required';
+    } else if (!validateEmail(form.email)) {
+      newErrors.email = 'Invalid email format';
+    }
+
+    if (!form.password.trim()) {
+      newErrors.password = 'Field required';
+    }
+
     setErrors(newErrors);
-    return !Object.values(newErrors).some(error => error !== '');
+    const hasErrors: boolean = Object.values(newErrors).some(error => error !== '');
+
+    return !hasErrors;
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
     if (!validate()) return;
 
     setLoading(true);
     try {
-      const response = await fetch(API_URL, {
+      const response: Response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,11 +80,11 @@ const Login = () => {
         return;
       }
 
-      const data = await response.json();
+      const data: LoginResponse = await response.json();
       localStorage.setItem('token', data.token);
       setAuth(true, data.first_name, data.login_date);
       navigate(homePath);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Login failed:', error);
       alert('An error occurred. Please try again.');
     } finally {
@@ -81,6 +107,7 @@ const Login = () => {
               placeholder="Email address"
               value={form.email}
               onChange={handleChange('email')}
+              disabled={loading}
             />
             {errors.email && (
               <p id="email-error" className={styles['error']}>
@@ -96,6 +123,7 @@ const Login = () => {
               placeholder="Password"
               value={form.password}
               onChange={handleChange('password')}
+              disabled={loading}
             />
             {errors.password && (
               <p id="password-error" className={styles['error']}>
@@ -104,7 +132,7 @@ const Login = () => {
             )}
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button disabled={loading}>
             {loading ? <span className={styles['spinner']} /> : 'Log in'}
           </button>
         </form>
